@@ -4,6 +4,7 @@ const cors = require('cors');
 const session = require('express-session');
 
 const app = express();
+app.use(express.static(`${__dirname}/../build`));
 //creating session so when page is refreshed items are kept in cart
 app.use(
     session({
@@ -31,12 +32,12 @@ app.put('/api/reduce', deductFromCart);
 app.delete('/api/:delete', deleteFromCart);
 app.put('/api/checkout', checkout);
 
-const port = 3005;
 
+const path = require('path');
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, '../build/index.html'))
 });
-
+const port = 3005;
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
 })
